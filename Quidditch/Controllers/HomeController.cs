@@ -23,7 +23,24 @@ namespace Quidditch.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Profile()
+        {
+            return View();
+        }
+        public IActionResult Score()
+        {
+            return View();
+        }
+        public IActionResult Blogpost()
+        {
+            return View();
+        }
+        public IActionResult MakePost()
+        {
+            return View();
+        }
+        public IActionResult MyPost()
+
         {
             return View();
         }
