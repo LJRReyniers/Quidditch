@@ -16,25 +16,31 @@
         <a class="nav-link" asp-action="Score" asp-controller="Home">Score</a>
     </li>
 </ul>
-<div class="container">
-    <div id="content_profile">
+<div class="container p-5">
+    <div id="content_Profile">
         <div>
             <h1>My Profile</h1>
         </div>
-        <form class="rounded mt-2">
+        <div class="card" style="width: 30rem;">
             <div class="form-group">
+                <img src="/img/1.png">
                 <label>Username</label>
-                <input type="text" class="form-control">
             </div>
-            <div class="form-group">
-                <label>Description</label>
-                <input type="text" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Image</label>
-                <input type="file" class="form-control">
-            </div>
-            <button id="btn_add" type="submit" class="btn btn-primary" asp-action="MyPost" asp-controller="Home">My Posts</button>
-        </form>
+        </div>
+        <div class="card align-items-center" style="width: 30rem;">
+            <form class="rounded mt-2">
+
+                <div class="form-group clearfix">
+                    <label style="float: left">High score: </label>
+                    <label style="float: right">________________</label>
+                </div>
+                <div class="form-group clearfix">
+                    <label style="float: left">Posts: </label>
+                    <label style="float: right">________________</label>
+                </div>
+                <button id="btn_add" type="submit" class="btn btn-primary float-right" asp-action="MyPost" asp-controller="Home">My Posts</button>
+            </form>
+            <p class="text-left"> </p>
+        </div>
     </div>
 </div>
