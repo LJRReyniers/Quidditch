@@ -12,5 +12,9 @@ namespace Quidditch.Controllers
         {
             return View();
         }
+        public IActionResult New()
+        {
+            return View();
+        }
     }
 }
