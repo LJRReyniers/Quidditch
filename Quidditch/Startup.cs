@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Quidditch.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Quidditch
 {
@@ -24,6 +26,7 @@ namespace Quidditch
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<QuidditchContext>(options => options.UseSqlServer(Configuration.GetConnectionString("QuidditchContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
