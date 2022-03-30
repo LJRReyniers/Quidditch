@@ -12,9 +12,9 @@ namespace Quidditch.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    Score = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: false),
+                    Titel = table.Column<string>(nullable: true),
+                    Body = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,9 +27,9 @@ namespace Quidditch.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: false),
-                    Titel = table.Column<string>(nullable: true),
-                    Body = table.Column<string>(nullable: true)
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    Score = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

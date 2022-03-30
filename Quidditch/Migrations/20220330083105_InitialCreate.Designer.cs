@@ -9,7 +9,7 @@ using Quidditch.Data;
 namespace Quidditch.Migrations
 {
     [DbContext(typeof(QuidditchContext))]
-    [Migration("20220328114353_InitialCreate")]
+    [Migration("20220330083105_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,14 +27,14 @@ namespace Quidditch.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Password")
+                    b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Score")
+                    b.Property<string>("Titel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -48,14 +48,14 @@ namespace Quidditch.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Body")
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Titel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
+                    b.Property<int>("Score")
                         .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

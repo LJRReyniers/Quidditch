@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Quidditch.Data;
 using Quidditch.Models;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,11 @@ namespace Quidditch.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly QuidditchContext _context;
+        public HomeController(QuidditchContext context)
         {
-            _logger = logger;
-        }
-
+            _context = context;
+        } 
         public IActionResult Index()
         {
             return View();
@@ -35,13 +34,17 @@ namespace Quidditch.Controllers
         {
             return View();
         }
-        public IActionResult MakePost()
-        {
-            return View();
-        }
         public IActionResult MyPost()
 
         {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult MyPost([Bind("Id,UserId,Titel,Body")] Post post)
+
+        {
+            _context.Post.Add(post);
+            _context.SaveChanges();
             return View();
         }
 
