@@ -26,7 +26,21 @@
             </div>
             <form class="rounded mt-2" style="width: 30rem;">
                 <div class="form-group">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
+                    <table class="table">
+                        <tr>
+                            <th>id</th>
+                            <th>titel</th>
+                            <th>body</th>
+                        </tr>
+                        @foreach (var post in ViewData["Post"] as List<Post>)
+                        {
+                            <tr>
+                                <th scope="row">@post.UserId</th>
+                                <td>@post.Titel</td>
+                                <td>@post.Body</td>
+                            </tr>
+                        }
+                    </table>
                 </div>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Create Post</button>
             </form>

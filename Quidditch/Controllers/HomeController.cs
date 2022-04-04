@@ -24,6 +24,16 @@ namespace Quidditch.Controllers
 
         public IActionResult Profile()
         {
+            List<User> UserList = new List<User>();
+            UserList = _context.User.ToList();
+            ViewBag.UserScore = UserList;
+            List<Post> count = new List<Post>();
+            var numbers = _context.Post.Where(p => p.UserId == 0);
+            foreach (var number in numbers)
+            {
+                count.Add(number);
+            }
+            ViewBag.PostNumber = count.Count();
             return View();
         }
         public IActionResult Score()
@@ -32,11 +42,16 @@ namespace Quidditch.Controllers
         }
         public IActionResult Blogpost()
         {
+            List<Post> PostList = new List<Post>();
+            PostList = _context.Post.ToList();
+            ViewData["Post"] = PostList;
             return View();
         }
         public IActionResult MyPost()
-
         {
+            List<Post> PostList = new List<Post>();
+            PostList = _context.Post.ToList();
+            ViewData["Post"] = PostList;
             return View();
         }
         [HttpPost]
