@@ -60,6 +60,9 @@ namespace Quidditch.Controllers
         {
             _context.Post.Add(post);
             _context.SaveChanges();
+            List<Post> PostList = new List<Post>();
+            PostList = _context.Post.ToList();
+            ViewData["Post"] = PostList;
             return View();
         }
 
