@@ -19,6 +19,10 @@ namespace Quidditch.Controllers
         } 
         public IActionResult Index()
         {
+            if (TempData.Peek("User") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
 
@@ -34,6 +38,11 @@ namespace Quidditch.Controllers
                 count.Add(number);
             }
             ViewBag.PostNumber = count.Count();
+            if (TempData.Peek("User") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            TempData.Peek("Username");
             return View();
         }
         public IActionResult Score()
@@ -52,6 +61,11 @@ namespace Quidditch.Controllers
             List<Post> PostList = new List<Post>();
             PostList = _context.Post.ToList();
             ViewData["Post"] = PostList;
+            TempData.Peek("Username");
+            if (TempData.Peek("User") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
         [HttpPost]

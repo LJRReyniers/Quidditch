@@ -20,10 +20,7 @@ namespace Quidditch.Controllers
         }
         public IActionResult Index()
         {
-        List<User> UserList = new List<User>();
-        UserList = _context.User.ToList();
-        ViewData["User"] = UserList;
-        return View();
+            return View();
         }
         public IActionResult New()
         {
@@ -38,6 +35,8 @@ namespace Quidditch.Controllers
             User myUser = _context.User.FirstOrDefault(u => u.Username.Equals(user.Username) && u.Password.Equals(user.Password));
             if (myUser != null)    //User was found
             {
+                TempData["User"] = myUser.Id;
+                TempData["Username"] = myUser.Username;
                 return RedirectToAction("Index","Home");
                 //Console.WriteLine("Login successful");
             }
@@ -47,6 +46,7 @@ namespace Quidditch.Controllers
                 //Console.WriteLine("Username or Password is incorrect");
             }
             //_context.SaveChanges();
+            //
             //return View();
         }
         public IActionResult New([Bind("Id,Username,Password,Score")] User user)
