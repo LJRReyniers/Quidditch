@@ -24,39 +24,35 @@ namespace Quidditch.Controllers
         }
         public IActionResult New()
         {
-            List<User> UserList = new List<User>();
-            UserList = _context.User.ToList();
-            ViewData["User"] = UserList;
             return View();
         }
         [HttpPost]
         public IActionResult Index([Bind("Id,Username,Password,Score")] User user)
         {
-            User myUser = _context.User.FirstOrDefault(u => u.Username.Equals(user.Username) && u.Password.Equals(user.Password));
-            if (myUser != null)    //User was found
+            User myUser = _context.User.FirstOrDefault(u => u.Username.Equals(user.Username));
+            if (myUser != null && BCrypt.Net.BCrypt.Verify(user.Password, myUser.Password))
             {
                 TempData["User"] = myUser.Id;
                 TempData["Username"] = myUser.Username;
-                return RedirectToAction("Index","Home");
-                //Console.WriteLine("Login successful");
+                return RedirectToAction("Index", "Home");
             }
-            else    //User was not found
+            else
             {
                 return View();
-                //Console.WriteLine("Username or Password is incorrect");
             }
-            //_context.SaveChanges();
-            //
-            //return View();
         }
+        [HttpPost]
         public IActionResult New([Bind("Id,Username,Password,Score")] User user)
         {
+            string Hash = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            user.Password = Hash;
+
             _context.User.Add(user);
             _context.SaveChanges();
             List<User> UserList = new List<User>();
             UserList = _context.User.ToList();
             ViewData["User"] = UserList;
-            return View();
+            return RedirectToAction("Index", "Login");
         }
     }
 }
