@@ -21,7 +21,7 @@
         <div class="form-group clearfix">
             <h1 style="float: left">My Posts</h1>
             <div class="form-group" style="float: right">
-                <label>@TempData["Username"]</label>
+                <label>@HttpContext.Session.GetString("_Username")</label>
                 <img src="/img/1.png">
             </div>
             <form class="rounded mt-2" style="width: 30rem;">
@@ -35,7 +35,7 @@
                         @foreach (var post in ViewData["Post"] as List<Post>)
                         {
                             <tr>
-                                <th scope="row">@TempData["User"]</th>
+                                <th scope="row">@HttpContext.Session.GetInt32("_UserId").ToString()</th>
                                 <td>@post.Titel</td>
                                 <td>@post.Body</td>
                             </tr>

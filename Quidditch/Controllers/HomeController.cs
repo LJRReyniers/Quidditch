@@ -14,6 +14,7 @@ namespace Quidditch.Controllers
     public class HomeController : Controller
     {
         public const string UserId = "_UserId";
+        public const string Username = "_Username";
 
         private readonly QuidditchContext _context;
         public HomeController(QuidditchContext context)
@@ -22,7 +23,8 @@ namespace Quidditch.Controllers
         } 
         public IActionResult Index()
         {
-            if (TempData.Peek("User") == null)
+            var userId = HttpContext.Session.GetInt32(UserId);
+            if (userId == null)
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -35,17 +37,18 @@ namespace Quidditch.Controllers
             UserList = _context.User.ToList();
             ViewBag.UserScore = UserList;
             List<Post> count = new List<Post>();
-            var numbers = _context.Post.Where(p => p.UserId == 0);
+            var userId = HttpContext.Session.GetInt32(UserId);
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            var numbers = _context.Post.Where(p => p.UserId == userId);
             foreach (var number in numbers)
             {
                 count.Add(number);
             }
             ViewBag.PostNumber = count.Count();
-            if (TempData.Peek("User") == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-            TempData.Peek("Username");
+            var username = HttpContext.Session.GetString(Username);
             return View();
         }
         public IActionResult Score()
@@ -61,14 +64,15 @@ namespace Quidditch.Controllers
         }
         public IActionResult MyPost()
         {
-            List<Post> PostList = new List<Post>();
-            PostList = _context.Post.ToList();
-            ViewData["Post"] = PostList;
-            TempData.Peek("Username");
-            if (TempData.Peek("User") == null)
+            List<Post> PostLijst = new List<Post>();
+            var userId = HttpContext.Session.GetInt32(UserId);
+            if (userId == null)
             {
                 return RedirectToAction("Index", "Login");
             }
+            PostLijst = _context.Post.Where(p => p.UserId == userId).ToList();
+            ViewData["Post"] = PostLijst;
+            var username = HttpContext.Session.GetString(Username);
             return View();
         }
         [HttpPost]

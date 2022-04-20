@@ -15,6 +15,7 @@ namespace Quidditch.Controllers
     public class LoginController : Controller
     {
         public const string UserId = "_UserId";
+        public const string Username = "_Username";
 
         private readonly QuidditchContext _context;
         public LoginController(QuidditchContext context)
@@ -35,8 +36,7 @@ namespace Quidditch.Controllers
             User myUser = _context.User.FirstOrDefault(u => u.Username.Equals(user.Username));
             if (myUser != null && BCrypt.Net.BCrypt.Verify(user.Password, myUser.Password))
             {
-                TempData["User"] = myUser.Id;
-                TempData["Username"] = myUser.Username;
+                HttpContext.Session.SetString(Username, myUser.Username);
                 HttpContext.Session.SetInt32(UserId, myUser.Id);
                 return RedirectToAction("Index", "Home");
             }
