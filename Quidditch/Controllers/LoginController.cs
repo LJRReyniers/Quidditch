@@ -8,11 +8,14 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Http;
 
 namespace Quidditch.Controllers
 {
     public class LoginController : Controller
     {
+        public const string UserId = "_UserId";
+
         private readonly QuidditchContext _context;
         public LoginController(QuidditchContext context)
         {
@@ -34,6 +37,7 @@ namespace Quidditch.Controllers
             {
                 TempData["User"] = myUser.Id;
                 TempData["Username"] = myUser.Username;
+                HttpContext.Session.SetInt32(UserId, myUser.Id);
                 return RedirectToAction("Index", "Home");
             }
             else

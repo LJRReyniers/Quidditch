@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Quidditch.Data;
 using Quidditch.Models;
@@ -12,6 +13,8 @@ namespace Quidditch.Controllers
 {
     public class HomeController : Controller
     {
+        public const string UserId = "_UserId";
+
         private readonly QuidditchContext _context;
         public HomeController(QuidditchContext context)
         {
@@ -72,6 +75,12 @@ namespace Quidditch.Controllers
         public IActionResult MyPost([Bind("Id,UserId,Titel,Body")] Post post)
 
         {
+            var userId = HttpContext.Session.GetInt32(UserId);
+            if (userId == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            post.UserId = (int)userId;
             _context.Post.Add(post);
             _context.SaveChanges();
             List<Post> PostList = new List<Post>();
