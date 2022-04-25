@@ -1,7 +1,4 @@
-﻿@page
-@using Microsoft.AspNetCore.Http
-
-@{
+﻿@{
    ViewData["Title"] = "Profile Page";
 }
 
@@ -27,7 +24,7 @@
         <div class="card" style="width: 30rem;">
             <div class="form-group">
                 <img src="/img/1.png">
-                <label>@HttpContext.Session.GetString("_Username")</label>
+                <label>@ViewBag.Username</label>
             </div>
         </div>
         <div class="card align-items-center" style="width: 30rem;">

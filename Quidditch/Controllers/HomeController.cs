@@ -49,6 +49,8 @@ namespace Quidditch.Controllers
             }
             ViewBag.PostNumber = count.Count();
             var username = HttpContext.Session.GetString(Username);
+            ViewBag.Username = username;
+            ViewBag.UserId = userId;
             return View();
         }
         public IActionResult Score()
@@ -66,6 +68,7 @@ namespace Quidditch.Controllers
         {
             List<Post> PostLijst = new List<Post>();
             var userId = HttpContext.Session.GetInt32(UserId);
+            ViewBag.UserId = userId;
             if (userId == null)
             {
                 return RedirectToAction("Index", "Login");
@@ -73,6 +76,7 @@ namespace Quidditch.Controllers
             PostLijst = _context.Post.Where(p => p.UserId == userId).ToList();
             ViewData["Post"] = PostLijst;
             var username = HttpContext.Session.GetString(Username);
+            ViewBag.Username = username;
             return View();
         }
         [HttpPost]
@@ -80,6 +84,7 @@ namespace Quidditch.Controllers
 
         {
             var userId = HttpContext.Session.GetInt32(UserId);
+            ViewBag.UserId = userId;
             if (userId == null)
             {
                 return RedirectToAction("Index", "Login");
