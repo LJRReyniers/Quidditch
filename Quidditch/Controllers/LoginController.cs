@@ -9,18 +9,23 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Http;
+using Quiddich.Business.Interfaces;
 
 namespace Quidditch.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly IBusinessUser _userService;
+        private readonly IBusinessPost _postService;
+
         public const string UserId = "_UserId";
         public const string Username = "_Username";
 
         private readonly QuidditchContext _context;
-        public LoginController(QuidditchContext context)
+        public LoginController(IBusinessUser userService, IBusinessPost postService)
         {
-            _context = context;
+            _userService = userService;
+            _postService = postService;
         }
         public IActionResult Index()
         {
@@ -53,9 +58,9 @@ namespace Quidditch.Controllers
 
             _context.User.Add(user);
             _context.SaveChanges();
-            List<User> UserList = new List<User>();
-            UserList = _context.User.ToList();
-            ViewData["User"] = UserList;
+
+            ViewData["User"] = _userService.GetAllUsers(user);
+
             return RedirectToAction("Index", "Login");
         }
     }

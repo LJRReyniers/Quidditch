@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Quidditch.Models;
 
 namespace Quidditch.Data
 {
@@ -14,8 +13,8 @@ namespace Quidditch.Data
         {
         }
 
-        public DbSet<User> User { get; set; }
-        public DbSet<Post> Post { get; set; }
+        public DbSet<Quidditch.Entities.Models.User> User { get; set; }
+        public DbSet<Quidditch.Entities.Models.Post> Post { get; set; }
 
     }
 }

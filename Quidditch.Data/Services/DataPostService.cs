@@ -1,0 +1,41 @@
+﻿using Quidditch.Data.Interfaces;
+using Quidditch.Entities.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Quidditch.Data.Services
+{
+    public class DataPostService : IDataPost
+    {
+        private readonly QuidditchContext _context;
+        public DataPostService(QuidditchContext context)
+        {
+            _context = context;
+        }
+        public List<Post> Get_Post(Post post, int userId)
+        {
+           return (List<Post>)_context.Post.Where(p => p.UserId == userId);
+        }
+        public List<Post> ToList_Get_Post(Post post, int userId)
+        {
+            List<Post> PostLijst = new List<Post>();
+            return _context.Post.Where(p => p.UserId == userId).ToList();
+        }
+
+        public void Add_Post(Post post)
+        {
+            _context.Post.Add(post);
+        }
+
+        public List<Post> Getall_Posts(Post post)
+        {
+            List<Post> PostList = new List<Post>();
+            PostList = _context.Post.ToList();
+
+            return PostList;
+        }
+    }
+}

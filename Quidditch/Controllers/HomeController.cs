@@ -36,7 +36,9 @@ namespace Quidditch.Controllers
             List<User> UserList = new List<User>();
             UserList = _context.User.ToList();
             ViewBag.UserScore = UserList;
+
             List<Post> count = new List<Post>();
+
             var userId = HttpContext.Session.GetInt32(UserId);
             if (userId == null)
             {
@@ -48,9 +50,11 @@ namespace Quidditch.Controllers
                 count.Add(number);
             }
             ViewBag.PostNumber = count.Count();
+
             var username = HttpContext.Session.GetString(Username);
             ViewBag.Username = username;
             ViewBag.UserId = userId;
+
             return View();
         }
         public IActionResult Score()
@@ -67,6 +71,7 @@ namespace Quidditch.Controllers
         public IActionResult MyPost()
         {
             List<Post> PostLijst = new List<Post>();
+
             var userId = HttpContext.Session.GetInt32(UserId);
             ViewBag.UserId = userId;
             if (userId == null)
@@ -75,8 +80,10 @@ namespace Quidditch.Controllers
             }
             PostLijst = _context.Post.Where(p => p.UserId == userId).ToList();
             ViewData["Post"] = PostLijst;
+
             var username = HttpContext.Session.GetString(Username);
             ViewBag.Username = username;
+
             return View();
         }
         [HttpPost]
@@ -89,12 +96,15 @@ namespace Quidditch.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+
             post.UserId = (int)userId;
             _context.Post.Add(post);
             _context.SaveChanges();
+
             List<Post> PostList = new List<Post>();
             PostList = _context.Post.ToList();
             ViewData["Post"] = PostList;
+
             return View();
         }
 

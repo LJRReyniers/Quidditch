@@ -10,6 +10,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Quidditch.Data;
 using Microsoft.EntityFrameworkCore;
+using Quidditch.Data.Services;
+using Quidditch.Data.Interfaces;
+using Quiddich.Business.Services;
+using Quiddich.Business.Interfaces;
 
 namespace Quidditch
 {
@@ -26,7 +30,10 @@ namespace Quidditch
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDistributedMemoryCache();
-
+            services.AddScoped<IDataUser, DataUserService>();
+            services.AddScoped<IDataPost, DataPostService>();
+            services.AddScoped<IBusinessUser, BusinessUserService>();
+            services.AddScoped<IBusinessPost, BusinessPostService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(10);

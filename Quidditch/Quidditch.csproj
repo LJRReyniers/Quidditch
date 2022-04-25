@@ -18,7 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <ProjectReference Include="..\Quiddich.Business\Quiddich.Business.csproj" />
+    <ProjectReference Include="..\Quidditch.Data\Quidditch.Data.csproj" />
+    <ProjectReference Include="..\Quidditch.Entities\Quidditch.Entities.csproj" />
   </ItemGroup>
 
 </Project>
