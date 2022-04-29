@@ -23,9 +23,10 @@ namespace Quidditch.Data.Services
         public void Add_User(User user)
         {
             _context.User.Add(user);
+            _context.SaveChanges();
         }
 
-        public List<User> Getall_Users(User user)
+        public List<User> Getall_Users()
         {
             List<User> UserList = new List<User>();
             UserList = _context.User.ToList();

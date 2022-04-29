@@ -9,6 +9,6 @@ namespace Quidditch.Data.Interfaces
     {
         public User Get_User(User user);
         public void Add_User(User user);
-        public List<User> Getall_Users(User user);
+        public List<User> Getall_Users();
     }
 }

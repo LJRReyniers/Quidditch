@@ -15,11 +15,11 @@ namespace Quidditch.Data.Services
         {
             _context = context;
         }
-        public List<Post> Get_Post(Post post, int userId)
+        public List<Post> Get_Post(int userId)
         {
            return (List<Post>)_context.Post.Where(p => p.UserId == userId);
         }
-        public List<Post> ToList_Get_Post(Post post, int userId)
+        public List<Post> ToList_Get_Post(int userId)
         {
             List<Post> PostLijst = new List<Post>();
             return _context.Post.Where(p => p.UserId == userId).ToList();
@@ -28,9 +28,10 @@ namespace Quidditch.Data.Services
         public void Add_Post(Post post)
         {
             _context.Post.Add(post);
+            _context.SaveChanges();
         }
 
-        public List<Post> Getall_Posts(Post post)
+        public List<Post> Getall_Posts()
         {
             List<Post> PostList = new List<Post>();
             PostList = _context.Post.ToList();

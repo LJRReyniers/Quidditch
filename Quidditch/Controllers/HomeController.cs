@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Quiddich.Business.Interfaces;
 using Quidditch.Data;
-using Quidditch.Models;
+using Quidditch.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,13 +14,17 @@ namespace Quidditch.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IBusinessUser _userService;
+        private readonly IBusinessPost _postService;
+
         public const string UserId = "_UserId";
         public const string Username = "_Username";
 
         private readonly QuidditchContext _context;
-        public HomeController(QuidditchContext context)
+        public HomeController(IBusinessUser userService, IBusinessPost postService)
         {
-            _context = context;
+            _userService = userService;
+            _postService = postService;
         } 
         public IActionResult Index()
         {
@@ -33,9 +38,7 @@ namespace Quidditch.Controllers
 
         public IActionResult Profile()
         {
-            List<User> UserList = new List<User>();
-            UserList = _context.User.ToList();
-            ViewBag.UserScore = UserList;
+            ViewBag.UserScore = _userService.GetAllUsers();
 
             List<Post> count = new List<Post>();
 
@@ -44,7 +47,7 @@ namespace Quidditch.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            var numbers = _context.Post.Where(p => p.UserId == userId);
+            var numbers = _postService.get_Post((int)userId);
             foreach (var number in numbers)
             {
                 count.Add(number);
@@ -63,23 +66,18 @@ namespace Quidditch.Controllers
         }
         public IActionResult Blogpost()
         {
-            List<Post> PostList = new List<Post>();
-            PostList = _context.Post.ToList();
-            ViewData["Post"] = PostList;
+            ViewData["Post"] = _postService.GetALL_Posts();
             return View();
         }
         public IActionResult MyPost()
         {
-            List<Post> PostLijst = new List<Post>();
-
             var userId = HttpContext.Session.GetInt32(UserId);
             ViewBag.UserId = userId;
             if (userId == null)
             {
                 return RedirectToAction("Index", "Login");
             }
-            PostLijst = _context.Post.Where(p => p.UserId == userId).ToList();
-            ViewData["Post"] = PostLijst;
+            ViewData["Post"] = _postService.ToList_get_Post((int)userId);
 
             var username = HttpContext.Session.GetString(Username);
             ViewBag.Username = username;
@@ -98,12 +96,9 @@ namespace Quidditch.Controllers
             }
 
             post.UserId = (int)userId;
-            _context.Post.Add(post);
-            _context.SaveChanges();
+            _postService.add_Post(post);
 
-            List<Post> PostList = new List<Post>();
-            PostList = _context.Post.ToList();
-            ViewData["Post"] = PostList;
+            ViewData["Post"] = _postService.get_Post((int)userId);
 
             return View();
         }

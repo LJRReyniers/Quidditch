@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Quidditch.Data;
-using Quidditch.Models;
+using Quidditch.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +38,7 @@ namespace Quidditch.Controllers
         [HttpPost]
         public IActionResult Index([Bind("Id,Username,Password,Score")] User user)
         {
-            User myUser = _context.User.FirstOrDefault(u => u.Username.Equals(user.Username));
+            User myUser = _userService.get_User(user);
             if (myUser != null && BCrypt.Net.BCrypt.Verify(user.Password, myUser.Password))
             {
                 HttpContext.Session.SetString(Username, myUser.Username);
@@ -56,10 +56,9 @@ namespace Quidditch.Controllers
             string Hash = BCrypt.Net.BCrypt.HashPassword(user.Password);
             user.Password = Hash;
 
-            _context.User.Add(user);
-            _context.SaveChanges();
+            _userService.add_User(user);
 
-            ViewData["User"] = _userService.GetAllUsers(user);
+            ViewData["User"] = _userService.GetAllUsers();
 
             return RedirectToAction("Index", "Login");
         }

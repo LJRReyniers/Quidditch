@@ -14,9 +14,17 @@ namespace Quiddich.Business.Services
         {
             _userService = userService;
         }
-        public List<User> GetAllUsers(user)
+        public List<User> GetAllUsers()
         {
-            return _userService.Getall_Users(user);
+            return _userService.Getall_Users();
+        }
+        public void add_User(User user)
+        {
+            _userService.Add_User(user);
+        }
+        public User get_User(User user)
+        {
+            return get_User(user);
         }
     }
 }
