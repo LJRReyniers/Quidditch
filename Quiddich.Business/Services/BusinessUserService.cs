@@ -24,7 +24,7 @@ namespace Quiddich.Business.Services
         }
         public User get_User(User user)
         {
-            return get_User(user);
+            return _userService.Get_User(user);
         }
     }
 }

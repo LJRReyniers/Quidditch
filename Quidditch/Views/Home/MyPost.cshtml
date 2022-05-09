@@ -32,12 +32,12 @@
                             <th>titel</th>
                             <th>body</th>
                         </tr>
-                        @foreach (var post in ViewData["Post"] as List<Post>)
+                        @foreach (var Post in Model)
                         {
                             <tr>
                                 <th scope="row">@ViewBag.UserId</th>
-                                <td>@post.Titel</td>
-                                <td>@post.Body</td>
+                                <td>@Post.Titel</td>
+                                <td>@Post.Body</td>
                             </tr>
                         }
                     </table>

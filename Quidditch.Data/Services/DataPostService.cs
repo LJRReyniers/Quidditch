@@ -17,7 +17,7 @@ namespace Quidditch.Data.Services
         }
         public List<Post> Get_Post(int userId)
         {
-           return (List<Post>)_context.Post.Where(p => p.UserId == userId);
+           return _context.Post.Where(p => p.UserId == userId).ToList();
         }
         public List<Post> ToList_Get_Post(int userId)
         {

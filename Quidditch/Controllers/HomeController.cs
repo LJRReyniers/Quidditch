@@ -66,8 +66,7 @@ namespace Quidditch.Controllers
         }
         public IActionResult Blogpost()
         {
-            ViewData["Post"] = _postService.GetALL_Posts();
-            return View();
+            return View(_postService.GetALL_Posts());
         }
         public IActionResult MyPost()
         {
@@ -77,12 +76,11 @@ namespace Quidditch.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            ViewData["Post"] = _postService.ToList_get_Post((int)userId);
 
             var username = HttpContext.Session.GetString(Username);
             ViewBag.Username = username;
 
-            return View();
+            return View(_postService.ToList_get_Post((int)userId));
         }
         [HttpPost]
         public IActionResult MyPost([Bind("Id,UserId,Titel,Body")] Post post)
