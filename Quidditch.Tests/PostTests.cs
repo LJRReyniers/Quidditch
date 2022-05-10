@@ -14,7 +14,9 @@ namespace Quidditch.Tests
     [TestClass]
     public class PostTests
     {
-        public Mock<IDataPost> MockData()
+        private Mock<IDataPost> _dataPostMock;
+        [TestInitialize]
+        public void Setup()
         {
             var data = new List<Post>
             {
@@ -22,26 +24,19 @@ namespace Quidditch.Tests
                 new Post {Id = 2, UserId = 2, Titel = "twee", Body = "twee"}
             };
 
-            //var mockset = new Mock<DbSet<Post>>();
+            var dataPostMock = new Mock<IDataPost>();
+            dataPostMock.Setup(c => c.Getall_Posts()).Returns(data);
 
-            //mockset.As<IQueryable<Post>>().Setup(m => m.Provider).Returns(data.Provider);
-            //mockset.As<IQueryable<Post>>().Setup(m => m.Expression).Returns(data.Expression);
-            //mockset.As<IQueryable<Post>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            //mockset.As<IQueryable<Post>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            var mockContext = new Mock<IDataPost>();
-            mockContext.Setup(c => c.Getall_Posts()).Returns(data);
-
-            return mockContext;
+            _dataPostMock = dataPostMock;
         }
+
         [TestMethod]
         public void Get_All_Posts_Test()
         {
             //Arrange
-            var mockContext = MockData();
 
             //Act
-            var service = new BusinessPostService(mockContext.Object);
+            var service = new BusinessPostService(_dataPostMock.Object);
             var posts = service.GetALL_Posts();
 
             //Assert

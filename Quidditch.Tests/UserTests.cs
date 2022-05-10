@@ -14,7 +14,9 @@ namespace Quidditch.Tests
     [TestClass]
     public class UserTests
     {
-        public Mock<IDataUser> MockData()
+        private Mock<IDataUser> _dataUserMock;
+        [TestInitialize]
+        public void Setup()
         {
             var data = new List<User>
             {
@@ -22,26 +24,19 @@ namespace Quidditch.Tests
                 new User {Id = 2, Username = "twee", Password = "twee", Score = 2}
             };
 
-            //var mockset = new Mock<DbSet<User>>();
+            var dataUserMock = new Mock<IDataUser>();
+            dataUserMock.Setup(c => c.Getall_Users()).Returns(data);
 
-            //mockset.As<IQueryable<User>>().Setup(m => m.Provider).Returns(data.Provider);
-            //mockset.As<IQueryable<User>>().Setup(m => m.Expression).Returns(data.Expression);
-            //mockset.As<IQueryable<User>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            //mockset.As<IQueryable<User>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-            var mockContext = new Mock<IDataUser>();
-            mockContext.Setup(c => c.Getall_Users()).Returns(data);
-
-            return mockContext;
+            _dataUserMock = dataUserMock;
         }
+
         [TestMethod]
         public void Get_All_Users_Test()
         {
             //Arrange
-            var mockContext = MockData();
 
             //Act
-            var service = new BusinessUserService(mockContext.Object);
+            var service = new BusinessUserService(_dataUserMock.Object);
             var users = service.GetAllUsers();
 
             //Assert
