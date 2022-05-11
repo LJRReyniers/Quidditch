@@ -7,7 +7,7 @@ namespace Quidditch.Data.Interfaces
 {
     public interface IDataUser
     {
-        public User Get_User(User user);
+        public User Get_User(string Username);
         public void Add_User(User user);
         public List<User> Getall_Users();
     }

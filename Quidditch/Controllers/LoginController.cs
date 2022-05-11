@@ -38,7 +38,7 @@ namespace Quidditch.Controllers
         [HttpPost]
         public IActionResult Index([Bind("Id,Username,Password,Score")] User user)
         {
-            User myUser = _userService.get_User(user);
+            User myUser = _userService.get_User(user.Username);
             if (myUser != null && BCrypt.Net.BCrypt.Verify(user.Password, myUser.Password))
             {
                 HttpContext.Session.SetString(Username, myUser.Username);

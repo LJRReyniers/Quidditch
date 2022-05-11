@@ -9,6 +9,6 @@ namespace Quiddich.Business.Interfaces
     {
         public List<User> GetAllUsers();
         public void add_User(User user);
-        public User get_User(User user);
+        public User get_User(string Username);
     }
 }

@@ -26,6 +26,7 @@ namespace Quidditch.Tests
 
             var dataUserMock = new Mock<IDataUser>();
             dataUserMock.Setup(c => c.Getall_Users()).Returns(data);
+            dataUserMock.Setup(c => c.Get_User("één")).Returns(data.First());
 
             _dataUserMock = dataUserMock;
         }
@@ -38,9 +39,21 @@ namespace Quidditch.Tests
             //Act
             var service = new BusinessUserService(_dataUserMock.Object);
             var users = service.GetAllUsers();
-
+            
             //Assert
             Assert.AreEqual(2, users.Count);
+        }
+        [TestMethod]
+        public void Get_User_Test()
+        {
+            //Arrange
+
+            //Act
+            var service = new BusinessUserService(_dataUserMock.Object);
+            User user = service.get_User("één");
+
+            //Assert
+            Assert.AreEqual("één", user.Username);
         }
     }
 }

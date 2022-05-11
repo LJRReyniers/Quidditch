@@ -15,9 +15,9 @@ namespace Quidditch.Data.Services
         {
             _context = context;
         }
-        public User Get_User(User user)
+        public User Get_User(string Username)
         {
-            return _context.User.FirstOrDefault(u => u.Username.Equals(user.Username));
+            return _context.User.FirstOrDefault(u => u.Username.Equals(Username));
         }
 
         public void Add_User(User user)

@@ -26,6 +26,7 @@ namespace Quidditch.Tests
 
             var dataPostMock = new Mock<IDataPost>();
             dataPostMock.Setup(c => c.Getall_Posts()).Returns(data);
+            dataPostMock.Setup(c => c.Get_Post(1)).Returns(data.Where(p => p.UserId == 1).ToList());
 
             _dataPostMock = dataPostMock;
         }
@@ -41,6 +42,18 @@ namespace Quidditch.Tests
 
             //Assert
             Assert.AreEqual(2, posts.Count);
+        }
+        [TestMethod]
+        public void Get_Post_Test()
+        {
+            //Arrange
+
+            //Act
+            var service = new BusinessPostService(_dataPostMock.Object);
+            var post = service.get_Post(1);
+
+            //Assert
+            Assert.AreEqual(1, post.Count);
         }
     }
 }
