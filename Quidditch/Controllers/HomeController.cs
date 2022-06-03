@@ -98,7 +98,7 @@ namespace Quidditch.Controllers
 
             ViewData["Post"] = _postService.get_Post((int)userId);
 
-            return View();
+            return View(_postService.get_Post((int)userId));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
