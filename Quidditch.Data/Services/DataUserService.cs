@@ -34,5 +34,10 @@ namespace Quidditch.Data.Services
 
             return UserList;
         }
+
+        public List<User> GetTop3Scores()
+        {
+            return _context.User.OrderByDescending(u => u.Score).Take(3).ToList();
+        }
     }
 }

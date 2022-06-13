@@ -55,6 +55,8 @@ namespace Quidditch.Controllers
         }
         public IActionResult Score()
         {
+            ViewBag.UserScore = _userService.Get_Top_3_Scores()[0].Score;
+
             return View();
         }
         public IActionResult Blogpost()

@@ -22,19 +22,68 @@
         <div>
             <h1>High-scores</h1>
         </div>
-        <div class="card clearfix" style="width: 30rem;">
-            <div class="form-group align-center mx-auto">
-                <img src="/img/2.png">
-                <label>1</label>
-            </div>
-            <div class="card clearfix" style="width: 30rem;">
-                <div class="form-group">
-                    <img src="/img/3.png" style="float: left">
-                    <label style="float: left">2</label>
-                    <img src="/img/1.png" style="float: right">
-                    <label style="float: right">3</label>
+
+        <div id="cards">
+
+            <div class="card score_card">
+                <div class="card_title">
+                    <h3>1st place</h3>
+                </div>
+                <div class="card-body card_body">
+                    <table class="table">
+                        @if (ViewBag.UserScore != null)
+                        {
+                            @foreach (var item in ViewBag.UserScore)
+                            {
+
+
+                            <tr class="table_row">
+                                <td><img src="/img/2.png"></td>
+                                <td>@item.Score</td>
+                            </tr>
+                                }
+                            }
+                    </table>
+
                 </div>
             </div>
+
+            <div class="card score_card">
+                <div class="card_title">
+                    <h3>2nd place</h3>
+                </div>
+                <div class="card-body card_body">
+                    <table class="table">
+                        @if (ViewBag.UserScore != null)
+                        {
+                            <tr class="table_row">
+                                <td><img src="/img/3.png"></td>
+                                <td>@ViewBag.UserScore</td>
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="card score_card">
+                <div class="card_title">
+                    <h3>3rd place</h3>
+                </div>
+                <div class="card-body card_body">
+                    <table class="table">
+                        @if (ViewBag.UserScore != null)
+                        {
+                            <tr class="table_row">
+                                <td><img src="/img/1.png"></td>
+                                <td>@ViewBag.UserScore</td>
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

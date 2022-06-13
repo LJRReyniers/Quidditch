@@ -26,5 +26,9 @@ namespace Quiddich.Business.Services
         {
             return _userService.Get_User(Username);
         }
+        public List<User> Get_Top_3_Scores()
+        {
+            return _userService.GetTop3Scores();
+        }
     }
 }
