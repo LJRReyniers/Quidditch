@@ -40,22 +40,15 @@ namespace Quidditch.Controllers
         {
             ViewBag.UserScore = _userService.GetAllUsers();
 
-            List<Post> count = new List<Post>();
-
             var userId = HttpContext.Session.GetInt32(UserId);
             if (userId == null)
             {
                 return RedirectToAction("Index", "Login");
             }
-            var numbers = _postService.get_Post((int)userId);
-            foreach (var number in numbers)
-            {
-                count.Add(number);
-            }
-            ViewBag.PostNumber = count.Count();
 
-            var username = HttpContext.Session.GetString(Username);
-            ViewBag.Username = username;
+            ViewBag.PostNumber = _postService.get_Post((int)userId).Count;
+
+            ViewBag.Username = HttpContext.Session.GetString(Username);
             ViewBag.UserId = userId;
 
             return View();

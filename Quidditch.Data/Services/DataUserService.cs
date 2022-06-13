@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Quidditch.Data.Services
 {
@@ -17,7 +18,7 @@ namespace Quidditch.Data.Services
         }
         public User Get_User(string Username)
         {
-            return _context.User.FirstOrDefault(u => u.Username.Equals(Username));
+            return _context.User.Include(x => x.Posts).FirstOrDefault(u => u.Username.Equals(Username));
         }
 
         public void Add_User(User user)

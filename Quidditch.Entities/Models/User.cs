@@ -13,5 +13,6 @@ namespace Quidditch.Entities.Models
         public string Password { get; set; }
         public int Score { get; set; }
         // lijst van post maken en hierin zetten
+        public List<Post> Posts { get; set; }
     }
 }
