@@ -7,6 +7,7 @@ namespace Quidditch.Entities.Models
     public class User_Post
     {
         public User user { get; set; }
-        public Post post { get; set; }
+        //public List<User> users { get; set; }
+        public string place { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿@using Quidditch.Entities.Models;
-@model User
+@model List<User_Post>
 @{
     ViewData["Title"] = "Score Page";
 }
@@ -26,61 +26,29 @@
         </div>
 
         <div id="cards">
-
-            <div class="card score_card">
-                <div class="card_title">
-                    <h3>1st place</h3>
-                </div>
-                <div class="card-body card_body">
-                    <table class="table">
-                        @if (Model.Score != null)
-                        {
+            
+        @foreach (var User in Model)
+        {
+            @if (User.user.Score != null)
+            {
+                <div class="card score_card">
+                    <div class="card_title">
+                        <h3> @User.place </h3>
+                    </div>
+                    <div class="card-body card_body">
+                        <table class="table">
                             <tr class="table_row">
-                                <td><img src="/img/2.png"></td>
-                                <td>@Model.Score</td>
+                                <td> @User.user.Img </td>
+                                <td> @User.user.Username </td>
+                                <td> @User.user.Score </td>
                             </tr>
-
-                        }
-                    </table>
-
+                        </table>
+                    </div>
                 </div>
-            </div>
-
-            <div class="card score_card">
-                <div class="card_title">
-                    <h3>2nd place</h3>
-                </div>
-                <div class="card-body card_body">
-                    <table class="table">
-                        @if (Model.Score != null)
-                        {
-                            <tr class="table_row">
-                                <td><img src="/img/3.png"></td>
-                                <td>@Model.Score</td>
-                            </tr>
-                        }
-                    </table>
-
-                </div>
-            </div>
-
-            <div class="card score_card">
-                <div class="card_title">
-                    <h3>3rd place</h3>
-                </div>
-                <div class="card-body card_body">
-                    <table class="table">
-                        @if (Model.Score != null)
-                        {
-                            <tr class="table_row">
-                                <td><img src="/img/1.png"></td>
-                                <td>@Model.Score</td>
-                            </tr>
-                        }
-                    </table>
-
-                </div>
-            </div>
+            }
+        }
+        
+            
 
         </div>
     </div>

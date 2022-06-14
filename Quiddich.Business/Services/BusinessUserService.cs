@@ -30,5 +30,22 @@ namespace Quiddich.Business.Services
         {
             return _userService.GetTop3Scores();
         }
+        public string GetPlacementStringForPosititon(int i)
+        {
+            string place = "Unassigned";
+            if (i == 1)
+            {
+                place = "1st Place";
+            }
+            if (i == 2)
+            {
+                place = "2nd Place";
+            }
+            if (i == 3)
+            {
+                place = "3rd Place";
+            }
+            return place;
+        }
     }
 }

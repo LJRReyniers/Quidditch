@@ -46,16 +46,27 @@ namespace Quidditch.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            //user.Number = user.Posts.Count;
+
             user.Username = HttpContext.Session.GetString(Username);
             return View(user);
         }
         public IActionResult Score()
         {
             User user = new User();
-            user.Score = _userService.Get_Top_3_Scores()[0].Score;
 
-            return View(user);
+            List<User_Post> Top_3_person_list = new List<User_Post>();
+            List<User> Person_list = new List<User>();
+
+            Person_list = _userService.Get_Top_3_Scores();
+
+            for (int i = 0; i < Person_list.Count; i++)
+            {
+                User_Post user_Post = new User_Post();
+                user_Post.user = Person_list[i];
+                user_Post.place = _userService.GetPlacementStringForPosititon(i + 1);
+                Top_3_person_list.Add(user_Post);
+            }
+            return View(Top_3_person_list);
         }
         public IActionResult Blogpost()
         {
