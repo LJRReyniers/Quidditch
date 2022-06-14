@@ -38,26 +38,24 @@ namespace Quidditch.Controllers
 
         public IActionResult Profile()
         {
-            ViewBag.UserScore = _userService.GetAllUsers();
+            User user = new User();
+            user.Score = Convert.ToInt32(_userService.GetAllUsers());
 
-            var userId = HttpContext.Session.GetInt32(UserId);
-            if (userId == null)
+            user.Id = (int)HttpContext.Session.GetInt32(UserId);
+            if (user.Id == null)
             {
                 return RedirectToAction("Index", "Login");
             }
-
-            ViewBag.PostNumber = _postService.get_Post((int)userId).Count;
-
-            ViewBag.Username = HttpContext.Session.GetString(Username);
-            ViewBag.UserId = userId;
-
-            return View();
+            //user.Number = user.Posts.Count;
+            user.Username = HttpContext.Session.GetString(Username);
+            return View(user);
         }
         public IActionResult Score()
         {
-            ViewBag.UserScore = _userService.Get_Top_3_Scores()[0].Score;
+            User user = new User();
+            user.Score = _userService.Get_Top_3_Scores()[0].Score;
 
-            return View();
+            return View(user);
         }
         public IActionResult Blogpost()
         {
@@ -65,35 +63,34 @@ namespace Quidditch.Controllers
         }
         public IActionResult MyPost()
         {
-            var userId = HttpContext.Session.GetInt32(UserId);
-            ViewBag.UserId = userId;
-            if (userId == null)
+            User user = new User();
+            user.Id = (int)HttpContext.Session.GetInt32(UserId);
+
+            if (user.Id == null)
             {
                 return RedirectToAction("Index", "Login");
             }
-
-            var username = HttpContext.Session.GetString(Username);
-            ViewBag.Username = username;
-
-            return View(_postService.ToList_get_Post((int)userId));
+            user.Posts = _postService.ToList_get_Post((int)user.Id);
+            user.Username = HttpContext.Session.GetString(Username);
+            return View(user);
         }
         [HttpPost]
         public IActionResult MyPost([Bind("Id,UserId,Titel,Body")] Post post)
 
         {
-            var userId = HttpContext.Session.GetInt32(UserId);
-            ViewBag.UserId = userId;
-            if (userId == null)
+            User user = new User();
+            user.Id = (int)HttpContext.Session.GetInt32(UserId);
+            if (user.Id == null)
             {
                 return RedirectToAction("Index", "Login");
             }
 
-            post.UserId = (int)userId;
+            post.UserId = (int)user.Id;
             _postService.add_Post(post);
 
-            ViewData["Post"] = _postService.get_Post((int)userId);
+            user.Posts = _postService.get_Post((int)user.Id);
 
-            return View(_postService.get_Post((int)userId));
+            return View(user);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

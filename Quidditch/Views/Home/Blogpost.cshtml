@@ -1,4 +1,5 @@
-﻿@{
+﻿@model User
+@{
     ViewData["Title"] = "Blog Page";
 }
 
@@ -29,7 +30,7 @@
                             <th>titel</th>
                             <th>body</th>
                         </tr>
-                        @foreach (var Post in Model)
+                        @foreach (var Post in Model.Posts)
                         {
                             <tr>
                                 <th scope="row">@Post.UserId</th>

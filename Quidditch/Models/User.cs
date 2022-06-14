@@ -12,5 +12,7 @@ namespace Quidditch.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public int Score { get; set; }
+        public List<Post> Posts { get; set; }
+        //public int Number { get; set; }
     }
 }

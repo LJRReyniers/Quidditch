@@ -1,4 +1,5 @@
-﻿@{
+﻿@model User
+@{
     ViewData["Title"] = "Score Page";
 }
 
@@ -31,17 +32,13 @@
                 </div>
                 <div class="card-body card_body">
                     <table class="table">
-                        @if (ViewBag.UserScore != null)
+                        @if (Model.Score != null)
                         {
-                            @foreach (var item in ViewBag.UserScore)
-                            {
-
-
                             <tr class="table_row">
                                 <td><img src="/img/2.png"></td>
-                                <td>@item.Score</td>
+                                <td>@Model.Score</td>
                             </tr>
-                                }
+
                             }
                     </table>
 
@@ -54,11 +51,11 @@
                 </div>
                 <div class="card-body card_body">
                     <table class="table">
-                        @if (ViewBag.UserScore != null)
+                        @if (Model.Score != null)
                         {
                             <tr class="table_row">
                                 <td><img src="/img/3.png"></td>
-                                <td>@ViewBag.UserScore</td>
+                                <td>@Model.Score</td>
                             </tr>
                         }
                     </table>
@@ -72,11 +69,11 @@
                 </div>
                 <div class="card-body card_body">
                     <table class="table">
-                        @if (ViewBag.UserScore != null)
+                        @if (Model.Score != null)
                         {
                             <tr class="table_row">
                                 <td><img src="/img/1.png"></td>
-                                <td>@ViewBag.UserScore</td>
+                                <td>@Model.Score</td>
                             </tr>
                         }
                     </table>

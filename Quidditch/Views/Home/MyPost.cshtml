@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  User
+@{
     ViewData["Title"] = "My Post Page";
 }
 
@@ -21,7 +22,7 @@
         <div class="form-group clearfix">
             <h1 style="float: left">My Posts</h1>
             <div class="form-group" style="float: right">
-                <label>@ViewBag.Username</label>
+                <label>@Model.Username</label>
                 <img src="/img/1.png">
             </div>
             <form class="rounded mt-2" style="width: 30rem;">
@@ -32,10 +33,10 @@
                             <th>titel</th>
                             <th>body</th>
                         </tr>
-                        @foreach (var Post in Model) // hier gaat er iets mis
+                        @foreach (var Post in Model.Posts)
                         {
                             <tr>
-                                <th scope="row">@ViewBag.UserId</th>
+                                <th scope="row">@Post.UserId</th>
                                 <td>@Post.Titel</td>
                                 <td>@Post.Body</td>
                             </tr>

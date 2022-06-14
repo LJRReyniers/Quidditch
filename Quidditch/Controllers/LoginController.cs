@@ -53,12 +53,11 @@ namespace Quidditch.Controllers
         [HttpPost]
         public IActionResult New([Bind("Id,Username,Password,Score")] User user)
         {
-            string Hash = BCrypt.Net.BCrypt.HashPassword(user.Password);
-            user.Password = Hash;
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
             _userService.add_User(user);
 
-            ViewData["User"] = _userService.GetAllUsers();
+            user.Id = Convert.ToInt32(_userService.GetAllUsers());
 
             return RedirectToAction("Index", "Login");
         }
