@@ -1,6 +1,7 @@
-﻿@model User
+﻿@using Quidditch.Entities.Models;
+@model User
 @{
-   ViewData["Title"] = "Profile Page";
+    ViewData["Title"] = "Profile Page";
 }
 
 <ul class="nav nav-tabs">
@@ -32,11 +33,14 @@
             <form class="rounded mt-2">
                 <div class="form-group clearfix">
                     <label style="float: left">High score: </label>
-                    <label style="float: right"> @Model.Score</label> 
+                    <label style="float: right"> @Model.Score</label>
                 </div>
                 <div class="form-group clearfix">
                     <label style="float: left">Posts: </label>
-                    <label style="float: right">@Model.Posts.Count</label>
+                    @if (Model.Posts != null)
+                    {
+                        <label style="float: right">@Model.Posts.Count</label>
+                    }
                 </div>
                 <button id="btn_add" type="submit" class="btn btn-primary float-right" asp-action="MyPost" asp-controller="Home">My Posts</button>
             </form>

@@ -39,7 +39,7 @@ namespace Quidditch.Controllers
         public IActionResult Profile()
         {
             User user = new User();
-            user.Score = Convert.ToInt32(_userService.GetAllUsers());
+            user.Score = Convert.ToInt32(_userService.get_User(user.Username));
 
             user.Id = (int)HttpContext.Session.GetInt32(UserId);
             if (user.Id == null)
@@ -59,7 +59,9 @@ namespace Quidditch.Controllers
         }
         public IActionResult Blogpost()
         {
-            return View(_postService.GetALL_Posts());
+            User user = new User();
+            user.Posts = _postService.GetALL_Posts();
+            return View(user);
         }
         public IActionResult MyPost()
         {
