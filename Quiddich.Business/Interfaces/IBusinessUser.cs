@@ -9,6 +9,7 @@ namespace Quiddich.Business.Interfaces
     {
         public List<User> GetAllUsers();
         public void add_User(User user);
+        public bool Check_User(string Username);
         public User get_User(string Username);
         public List<User> Get_Top_3_Scores();
         public string GetPlacementStringForPosititon(int i);

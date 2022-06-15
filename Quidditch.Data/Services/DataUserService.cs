@@ -34,7 +34,15 @@ namespace Quidditch.Data.Services
 
             return UserList;
         }
-
+        public bool check_user(string Username)
+        {
+            List<User> UserList = _context.User.Where(u => u.Username == Username).ToList();
+            if (UserList == null)
+            {
+                return false;
+            }
+            return true;
+        }
         public List<User> GetTop3Scores()
         {
             return _context.User.OrderByDescending(u => u.Score).Take(3).ToList();

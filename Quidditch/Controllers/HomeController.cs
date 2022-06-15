@@ -19,6 +19,7 @@ namespace Quidditch.Controllers
 
         public const string UserId = "_UserId";
         public const string Username = "_Username";
+        public const string Img = "_Img";
 
         private readonly QuidditchContext _context;
         public HomeController(IBusinessUser userService, IBusinessPost postService)
@@ -46,8 +47,8 @@ namespace Quidditch.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-
             user.Username = HttpContext.Session.GetString(Username);
+            user.Img = HttpContext.Session.GetString(Img);
             return View(user);
         }
         public IActionResult Score()
@@ -85,6 +86,7 @@ namespace Quidditch.Controllers
             }
             user.Posts = _postService.ToList_get_Post((int)user.Id);
             user.Username = HttpContext.Session.GetString(Username);
+            user.Img = HttpContext.Session.GetString(Img);
             return View(user);
         }
         [HttpPost]

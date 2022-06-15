@@ -22,6 +22,10 @@ namespace Quiddich.Business.Services
         {
             _userService.Add_User(user);
         }
+        public bool Check_User(string Username)
+        {
+            return _userService.check_user(Username);
+        }
         public User get_User(string Username)
         {
             return _userService.Get_User(Username);

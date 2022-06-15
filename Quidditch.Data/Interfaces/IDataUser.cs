@@ -9,6 +9,7 @@ namespace Quidditch.Data.Interfaces
     {
         public User Get_User(string Username);
         public void Add_User(User user);
+        public bool check_user(string Username);
         public List<User> Getall_Users();
         public List<User> GetTop3Scores();
     }

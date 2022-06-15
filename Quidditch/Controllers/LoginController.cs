@@ -20,6 +20,7 @@ namespace Quidditch.Controllers
 
         public const string UserId = "_UserId";
         public const string Username = "_Username";
+        public const string Img = "_Img";
 
         private readonly QuidditchContext _context;
         public LoginController(IBusinessUser userService, IBusinessPost postService)
@@ -36,13 +37,14 @@ namespace Quidditch.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index([Bind("Id,Username,Password,Score")] User user)
+        public IActionResult Index([Bind("Id,Username,Password,Score,Img")] User user)
         {
             User myUser = _userService.get_User(user.Username);
             if (myUser != null && BCrypt.Net.BCrypt.Verify(user.Password, myUser.Password))
             {
                 HttpContext.Session.SetString(Username, myUser.Username);
                 HttpContext.Session.SetInt32(UserId, myUser.Id);
+                HttpContext.Session.SetString(Img, myUser.Img);
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -51,13 +53,17 @@ namespace Quidditch.Controllers
             }
         }
         [HttpPost]
-        public IActionResult New([Bind("Id,Username,Password,Score")] User user)
+        public IActionResult New([Bind("Id,Username,Password,Score,Img")] User user)
         {
+            if (_userService.Check_User(user.Username))
+            {
+                Console.WriteLine("This username is taken");
+            }
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
 
             _userService.add_User(user);
 
-            user.Id = Convert.ToInt32(_userService.GetAllUsers());
+            user.Id = _userService.get_User(user.Username).Id;
 
             return RedirectToAction("Index", "Login");
         }
